@@ -5,18 +5,35 @@ import Notiflix from 'notiflix';
 
 const serchForm = document.querySelector('.search-form');
 const galleryItems = document.querySelector('.gallery');
+const loadMoreButton = document.querySelector('.load-more');
 
 serchForm.addEventListener('submit', onFormSubmit);
+loadMoreButton.addEventListener('click', onLoadMoreButton);
+
+let serchName = '';
 
 
-function onFormSubmit(e) {
+
+async function onFormSubmit(e) {
     e.preventDefault();
-    const serchName = serchForm['searchQuery'].value;
-    fetchGallery(serchName).then(data => {
-        markupGallery(data)
-    })
-    
+    serchName = serchForm['searchQuery'].value;
+
+    try {
+        fetchGallery(serchName).then(data => {
+            markupGallery(data)})
+    } catch (error) {
+          console.log(error);
+    }  
 }
+
+async function onLoadMoreButton() {
+    try {
+        fetchGallery(serchName).then(data => {
+            markupGallery(data)})
+    } catch (error) {
+          console.log(error);
+    } 
+  }
 
 function markupGallery(data) {
   const createMarkup = data.map(({webformatURL, tags, likes, views, comments, downloads}) => {
