@@ -19,6 +19,8 @@ let simpleLightbox = new SimpleLightbox('.gallery a', {
   captionDelay: 250,
 });
 
+buttonHidden();
+
 async function onFormSubmit(e) {
     e.preventDefault();
     const searchName = e.target.elements.searchQuery.value.trim();
@@ -50,6 +52,7 @@ async function onFormSubmit(e) {
       clearContainer();
 
       galleryItems.innerHTML = markupGallery(hits);
+      buttonShow();
       simpleLightbox.refresh();
       if (Math.ceil(totalHits / 40) === apiService.page) {
         console.log(totalHits);
@@ -59,9 +62,7 @@ async function onFormSubmit(e) {
           );
         }, 2000);
         return;
-      } else {
-        buttonShow();
-      }
+      } 
       }
       } catch (error) {
         console.error(error);
@@ -81,7 +82,7 @@ async function onLoadMoreButton() {
     slowScroll();
     if (Math.ceil(totalHits / 40) === apiService.page) {
       setTimeout(() => {
-        buttonHidden();
+        
         Notiflix.Notify.info(
           "We're sorry, but you've reached the end of search results."
         );
