@@ -82,7 +82,7 @@ async function onLoadMoreButton() {
     slowScroll();
     if (Math.ceil(totalHits / 40) === apiService.page) {
       setTimeout(() => {
-        
+        buttonHidden();
         Notiflix.Notify.info(
           "We're sorry, but you've reached the end of search results."
         );
